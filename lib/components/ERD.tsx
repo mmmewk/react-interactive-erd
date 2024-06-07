@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "../styles.module.scss";
 import { Schema } from "../types";
 import EntityDetails from "./EntityDetails";
@@ -20,6 +20,9 @@ const ERD: React.FC<Props> = ({
   selectedEntity,
   setSelectedEntity,
 }) => {
+  const [selectedColumn, setSelectedColumn] = useState<string | undefined>(
+    undefined
+  );
   const entity = schema.entities.find(({ name }) => name === selectedEntity);
 
   return (
@@ -27,6 +30,7 @@ const ERD: React.FC<Props> = ({
       <SearchBar
         entities={schema.entities}
         setEntityName={setSelectedEntity}
+        setSelectedColumn={setSelectedColumn}
         logoImagePath={schema.logoImagePath}
       />
       <div className={styles.content}>
@@ -37,7 +41,12 @@ const ERD: React.FC<Props> = ({
         />
         {entity && (
           <div className={styles.rightPanel}>
-            <EntityDetails entity={entity} setEntityName={setSelectedEntity} />
+            <EntityDetails
+              entity={entity}
+              setEntityName={setSelectedEntity}
+              selectedColumn={selectedColumn}
+              setSelectedColumn={setSelectedColumn}
+            />
           </div>
         )}
       </div>

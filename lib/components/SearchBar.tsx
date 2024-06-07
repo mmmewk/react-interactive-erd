@@ -13,6 +13,8 @@ interface Props {
   entities: Entity[];
   /** Callback to select an entity */
   setEntityName: (entityName?: string) => void;
+  /** Callback to select a column, (scroll it into view, then highlight) */
+  setSelectedColumn?: (columnName: string) => void;
   /** Logo image to display in place of the search icon */
   logoImagePath?: string;
 }
@@ -21,6 +23,7 @@ interface Props {
 const SearchBar: React.FC<Props> = ({
   entities,
   setEntityName,
+  setSelectedColumn,
   logoImagePath,
 }) => {
   const [query, setQuery] = useState("");
@@ -125,6 +128,8 @@ const SearchBar: React.FC<Props> = ({
           <SearchResult
             result={result}
             setEntityName={setEntityName}
+            setSelectedColumn={setSelectedColumn}
+            setQuery={setQuery}
             key={`${result.entity.name}-${result.column?.name}`}
           />
         ))}

@@ -60,7 +60,7 @@ const GraphvizDiagram: React.FC<Props> = ({
 
       const newNode = new Node(name, {
         [_.shape]: "Mrecord",
-        [_.label]: entitiesByName[name].friendlyName,
+        [_.label]: entitiesByName[name]?.friendlyName,
         [_.fontname]: "Arial",
         // [_.margin]: '%0.1,%0.12',
       });
@@ -77,7 +77,7 @@ const GraphvizDiagram: React.FC<Props> = ({
       graph.addEdge(edge);
     };
 
-    if (entityName) {
+    if (entityName && entitiesByName[entityName]) {
       // Only show entities connected to this one
       addEntityToGraph(entityName);
 
